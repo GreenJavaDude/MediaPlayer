@@ -1,5 +1,5 @@
 package com.greenjavadude.MediaPlayer;
 
-public class Music {
-	
+public enum Mode {
+	LOOP, SINGLE;
 }
