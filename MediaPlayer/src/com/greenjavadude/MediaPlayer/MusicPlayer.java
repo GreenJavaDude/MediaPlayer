@@ -39,7 +39,7 @@ public class MusicPlayer implements Runnable{
 		}
 		if(mode.equals(Mode.SINGLE)){
 			mp.play();
-			this.stop();
+			stop();
 		}
 	}
 	
