@@ -1,5 +1,7 @@
 package com.greenjavadude.MediaPlayer;
 
 public class Media {
-	//superclass of song and video
+	private String title;
+	private String author;
+	private String url;
 }
