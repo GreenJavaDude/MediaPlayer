@@ -20,7 +20,7 @@ public class Media implements Serializable{
 		return title;
 	}
 	
-	public void setTitle(String t) {
+	public synchronized void setTitle(String t) {
 		title = t;
 	}
 	
@@ -28,15 +28,15 @@ public class Media implements Serializable{
 		return author;
 	}
 	
-	public void setAuthor(String a) {
+	public synchronized void setAuthor(String a) {
 		author = a;
 	}
 	
-	public File getFile() {
+	public File getFile(){
 		return file;
 	}
 	
-	public void setFile(File f) {
-		file = f;
+	public synchronized void setFile(String path){
+		file = new File(path);
 	}
 }
