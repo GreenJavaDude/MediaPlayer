@@ -1,55 +1,69 @@
 package com.greenjavadude.MediaPlayer;
 
+import javax.swing.JPanel;
+
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.*;
 
 public class VideoPlayer implements Runnable{
-	private Mode mode;
+	private boolean running;
 	private Video video;
-	private MediaPlayer mp;
-	private MediaView mv;
+	private Media media;
+	private MediaPlayer player;
+	private MediaView mediaView;
 	
-	public VideoPlayer(Video vi, Mode m){
-		video = vi;
-		mode = m;
+	private JPanel panel;
+	
+	private JFXPanel jfxpanel;
+	private Scene scene;
+	private Pane pane;
+	
+	public VideoPlayer(Video v, JPanel p){
+		running = false;
+		video = v;
+		panel = p;
 		
-		Media media = new Media(video.getFile().toURI().toString());
-		mp = new MediaPlayer(media);
-		mv.setMediaPlayer(mp);
+		pane = new Pane();
 		
-		JFXPanel panel = new JFXPanel();
-		panel.setEnabled(false);
+		jfxpanel = new JFXPanel();
+		media = new Media(video.getFile().toURI().toString());
+		player = new MediaPlayer(media);
+		mediaView = new MediaView(player);
+		scene = new Scene(pane, 500, 500);
 	}
 	
 	public void run(){
-		switch(mode){
-		case LOOP:
-			mp.setCycleCount(MediaPlayer.INDEFINITE);
-			mp.play();
-			break;
-		case SINGLE:
-			mp.play();
-			stop();
-			break;
+		try{
+			init();
+			player.play();
+		}catch(Exception e){
+			
 		}
 	}
 	
-	//must add mediaview to the screen before calling stop()
 	public void start(){
+		running = true;
 		new Thread(this).start();
 	}
 	
-	//must remove mediaview off the screen before calling stop()
 	public void stop(){
-		if(!mp.isMute()){
-			mp.stop();
-		}
-		mp.dispose();
+		running = false;
+		player.stop();
+		panel.remove(jfxpanel);
+		jfxpanel.setEnabled(false);
+		
+		player.dispose();
 	}
 	
-	public MediaView getMediaView(){
-		return mv;
+	public void init(){
+		//adds stuff
+		pane.getChildren().add(mediaView);
+		
+		jfxpanel.setScene(scene);
+		panel.add(jfxpanel);
 	}
+	
+	
 }

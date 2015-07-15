@@ -1,7 +1,6 @@
 package com.greenjavadude.MediaPlayer;
 
 import java.io.IOException;
-
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
 
@@ -19,18 +18,25 @@ public class SongPlayer implements Runnable{
 	public SongPlayer(Song s){
 		running = false;
 		song = s;
-	}
-	
-	public void run(){
+		
 		try{
 			stream = AudioSystem.getAudioInputStream(song.getFile());
 			format = stream.getFormat();
 			info = new Info(SourceDataLine.class, format);
 			line = (SourceDataLine) AudioSystem.getLine(info);
+		}catch(IOException e){
 			
+		}catch(LineUnavailableException e){
+			
+		}catch(UnsupportedAudioFileException e){
+			
+		}
+	}
+	
+	public void run(){
+		try{
 			line.open(format);
 			
-			//starts playing
 			line.start();
 			
 			byte[] buffer = new byte[BYTE_BUFFER];
@@ -61,13 +67,3 @@ public class SongPlayer implements Runnable{
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-

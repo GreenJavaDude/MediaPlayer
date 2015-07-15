@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Library {
-	private ArrayList<Media> media;
+	private ArrayList<Medium> media;
 	private File saveLocation;
 	private Saver saver;
 	
 	public Library(String location){
-		media = new ArrayList<Media>();
+		media = new ArrayList<Medium>();
 		saveLocation = new File(location);
 		saver = new Saver();
 	}
@@ -38,23 +38,23 @@ public class Library {
 		return saveLocation;
 	}
 	
-	public ArrayList<Media> getMedia(){
+	public ArrayList<Medium> getMedia(){
 		return media;
 	}
 	
-	public synchronized void setMedia(ArrayList<Media> m){
+	public synchronized void setMedia(ArrayList<Medium> m){
 		media = m;
 	}
 	
-	public synchronized void add(Media m){
+	public synchronized void add(Medium m){
 		media.add(m);
 	}
 	
-	public synchronized void remove(Media m){
+	public synchronized void remove(Medium m){
 		media.remove(m);
 	}
 	
-	public Media getMedia(int i){
+	public Medium getMedia(int i){
 		return media.get(i);
 	}
 }

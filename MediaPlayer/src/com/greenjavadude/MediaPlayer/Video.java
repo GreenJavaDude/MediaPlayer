@@ -2,7 +2,7 @@ package com.greenjavadude.MediaPlayer;
 
 import java.io.File;
 
-public class Video extends Media{
+public class Video extends Medium{
 	private static final long serialVersionUID = 8202140175709881486L;
 
 	public Video(String t, File f) {

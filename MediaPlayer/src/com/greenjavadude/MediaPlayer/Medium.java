@@ -3,14 +3,14 @@ package com.greenjavadude.MediaPlayer;
 import java.io.File;
 import java.io.Serializable;
 
-public class Media implements Serializable{
+public class Medium implements Serializable{
 	private static final long serialVersionUID = 3406326308576163580L;
 	
 	private String title;
 	private String author;
 	private File file;
 	
-	public Media(String t, File f){
+	public Medium(String t, File f){
 		title = t;
 		file = f;
 		author = "Unknown Author";
