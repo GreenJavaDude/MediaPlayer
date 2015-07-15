@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-public class Test {
+public class Test {//add controls to the screen in videoplayer AND songplayer
 	public static void main(String[] args){
 		JFrame frame = new JFrame("Video test");
 		File file = new File("C://Programming//test.mp4");
@@ -24,7 +24,7 @@ public class Test {
 	
 	
 	
-	
+	//this is working
 	/*
 	public static void main(String[] args){
 		Song song = new Song("Testsong", new File("C://Programming//test.wav"));
