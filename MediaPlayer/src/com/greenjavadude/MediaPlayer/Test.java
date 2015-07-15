@@ -3,26 +3,45 @@ package com.greenjavadude.MediaPlayer;
 import java.io.*;
 import java.net.URL;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
 import javax.swing.*;
 
-public class Test{
+public class Test extends Application{
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Player");
+		launch(args);
+	}
+	
+	public void start(Stage stage) throws Exception {
 		JFileChooser chooser = new JFileChooser();
-		int choice = chooser.showOpenDialog(null);
+		int i = chooser.showDialog(null, "save");
 		URL url = chooser.getSelectedFile().toURI().toURL();
-		File file = new File(url);
+		String path = url.getPath();
+		Scene scene = new Scene(new Group(), 800, 500);
+		stage.setScene(scene);
 		
 		if(path.endsWith(".mp4")){
 			Video media = new Video("title", new File(path));
 			VideoPlayer vp = new VideoPlayer(media, Mode.SINGLE);
-			frame.add(vp.getMediaView());
+			((Group) scene.getRoot()).getChildren().add(vp.getMediaView());
+			vp.start();
 		}else{
 			Song media = new Song("title", new File(path));
+			MusicPlayer mp = new MusicPlayer(media, Mode.SINGLE);
+			mp.start();
 		}
 		
-		frame.setSize(800, 500);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		stage.show();
 	}
 }
+
+
+
+
+
+
+

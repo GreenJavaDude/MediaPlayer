@@ -9,7 +9,7 @@ public class VideoPlayer implements Runnable{
 	private Mode mode;
 	private Video video;
 	private MediaPlayer mp;
-	private MediaPanel mv;
+	private MediaView mv;
 	
 	public VideoPlayer(Video vi, Mode m){
 		video = vi;
@@ -17,7 +17,7 @@ public class VideoPlayer implements Runnable{
 		
 		Media media = new Media(video.getFile().toURI().toString());
 		mp = new MediaPlayer(media);
-		mv = new MediaPanel(video.getFile().getPath());
+		mv.setMediaPlayer(mp);
 		
 		JFXPanel panel = new JFXPanel();
 		panel.setEnabled(false);
