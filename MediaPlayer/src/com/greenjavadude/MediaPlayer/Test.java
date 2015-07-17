@@ -1,7 +1,6 @@
 package com.greenjavadude.MediaPlayer;
 
 import java.io.File;
-
 import javax.swing.*;
 
 public class Test {//add controls to the screen in videoplayer AND songplayer
