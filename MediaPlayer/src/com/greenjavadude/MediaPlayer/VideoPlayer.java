@@ -18,9 +18,14 @@ public class VideoPlayer implements Runnable{
 	private Scene scene;
 	private Pane pane;
 	
-	public VideoPlayer(Video v, JPanel p){
+	private int x;
+	private int y;
+	
+	public VideoPlayer(Video v, JPanel p, int x, int y){
 		video = v;
 		panel = p;
+		this.x = x;
+		this.y = y;
 		
 		pane = new Pane();
 		
@@ -28,8 +33,7 @@ public class VideoPlayer implements Runnable{
 		media = new Media(video.getFile().toURI().toString());
 		player = new MediaPlayer(media);
 		mediaView = new MediaView(player);
-		
-		scene = new Scene(pane, 500, 500);
+		scene = new Scene(pane, x, y);
 	}
 	
 	public void run(){
@@ -54,6 +58,9 @@ public class VideoPlayer implements Runnable{
 	}
 	
 	public void init(){
+		//mediaView.setFitHeight(y);
+		//mediaView.setFitWidth(x);
+		mediaView.autosize();
 		pane.getChildren().add(mediaView);
 		
 		jfxpanel.setScene(scene);
