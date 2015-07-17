@@ -4,11 +4,10 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
 
-public class SongPlayer implements Runnable{
+public class SongPlayer extends Player{
 	public static final int BYTE_BUFFER = 4096;
 	
 	private Song song;
-	private boolean running;
 	
 	private AudioInputStream stream;
 	private AudioFormat format;
@@ -16,7 +15,7 @@ public class SongPlayer implements Runnable{
 	private SourceDataLine line;
 	
 	public SongPlayer(Song s){
-		running = false;
+		super();
 		song = s;
 		
 		try{
@@ -33,37 +32,30 @@ public class SongPlayer implements Runnable{
 		}
 	}
 	
-	public void run(){
-		try{
-			line.open(format);
-			
-			line.start();
-			
-			byte[] buffer = new byte[BYTE_BUFFER];
-			int bytesread = -1;
-			
-			while((running) && ((bytesread = stream.read(buffer)) != -1)){
-				line.write(buffer, 0, bytesread);
-			}
-			stop();
-		}catch(Exception e){
-			
+	public void doStuff() throws Exception{
+		line.open(format);
+		
+		line.start();
+		
+		byte[] buffer = new byte[BYTE_BUFFER];
+		int bytesread = -1;
+		
+		while((running) && ((bytesread = stream.read(buffer)) != -1)){
+			line.write(buffer, 0, bytesread);
 		}
-	}
-	
-	public void start(){
-		running = true;
-		new Thread(this).start();
+		stop();
 	}
 	
 	public void stop(){
-		running = false;
-		line.drain();
-		line.close();
+		super.stop();
 		try{
 			stream.close();
 		}catch(IOException e){
 			
 		}
+		format = null;
+		info = null;
+		line.close();
+		song = null;
 	}
 }

@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.*;
 
-public class VideoPlayer implements Runnable{
+public class VideoPlayer extends Player{
 	private Video video;
 	private Media media;
 	private MediaPlayer player;
@@ -22,6 +22,7 @@ public class VideoPlayer implements Runnable{
 	private int y;
 	
 	public VideoPlayer(Video v, JPanel p, int x, int y){
+		super();
 		video = v;
 		panel = p;
 		this.x = x;
@@ -33,23 +34,16 @@ public class VideoPlayer implements Runnable{
 		media = new Media(video.getFile().toURI().toString());
 		player = new MediaPlayer(media);
 		mediaView = new MediaView(player);
-		scene = new Scene(pane, x, y);
+		scene = new Scene(pane, this.x, this.y);
 	}
 	
-	public void run(){
-		try{
-			init();
-			player.play();
-		}catch(Exception e){
-			
-		}
-	}
-	
-	public void start(){
-		new Thread(this).start();
+	public void doStuff() throws Exception{
+		init();
+		player.play();
 	}
 	
 	public void stop(){
+		super.stop();
 		player.stop();
 		panel.remove(jfxpanel);
 		jfxpanel.setEnabled(false);
@@ -58,8 +52,6 @@ public class VideoPlayer implements Runnable{
 	}
 	
 	public void init(){
-		//mediaView.setFitHeight(y);
-		//mediaView.setFitWidth(x);
 		mediaView.autosize();
 		pane.getChildren().add(mediaView);
 		
