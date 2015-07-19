@@ -33,7 +33,7 @@ public class SongPlayer extends Player{
 	}
 	
 	public void doStuff() throws Exception{
-		line.open(format);
+		line.open(format, 50);
 		
 		line.start();
 		
@@ -44,6 +44,14 @@ public class SongPlayer extends Player{
 			line.write(buffer, 0, bytesread);
 		}
 		stop();
+	}
+	
+	public void doPause(){
+		line.stop();
+	}
+	
+	public void doContinuePlaying(){
+		line.start();
 	}
 	
 	public void stop(){

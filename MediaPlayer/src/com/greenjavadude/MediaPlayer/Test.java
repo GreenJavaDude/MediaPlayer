@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Test {
 	//add controls to the screen in videoplayer AND songplayer
 	//video probably won't fit screen
-	
+	/*
 	public static final int X = 500;
 	public static final int Y = 500;
 	
@@ -27,10 +27,10 @@ public class Test {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		player.start();
 	}
-	
+	*/
 	
 	//the music is working
-	/*
+	
 	public static void main(String[] args){
 		Song song = new Song("Testsong", new File("C://Programming//test.wav"));
 		SongPlayer player = new SongPlayer(song);
@@ -41,7 +41,19 @@ public class Test {
 		}catch(Exception e){
 			
 		}
+		player.pause();
+		try{
+			Thread.sleep(1000);
+		}catch(Exception e){
+			
+		}
+		player.continuePlaying();
+		try{
+			Thread.sleep(2000);
+		}catch(Exception e){
+			
+		}
 		player.stop();
 	}
-	*/
+	
 }
