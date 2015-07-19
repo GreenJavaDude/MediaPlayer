@@ -59,6 +59,14 @@ public class VideoPlayer extends Player{
 		panel.add(jfxpanel);
 	}
 	
+	public void doPause(){
+		
+	}
+	
+	public void doContinuePlaying(){
+		
+	}
+	
 	
 }
 

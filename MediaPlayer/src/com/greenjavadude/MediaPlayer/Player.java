@@ -18,25 +18,27 @@ public abstract class Player implements Runnable{
 		}
 	}
 	
-	public void start(){
+	public synchronized void start(){
 		running = true;
 		new Thread(this).start();
 	}
 	
-	public void stop(){
+	public synchronized void stop(){
+		isPaused = false;
 		running = false;
 	}
 	
-	public void pause(){
+	public synchronized void pause(){
 		if((running) && (!isPaused)){
 			isPaused = true;
 			doPause();
 		}
 	}
 	
-	public void continuePlaying(){
+	public synchronized void continuePlaying(){
 		if(isPaused && running){
 			doContinuePlaying();
+			isPaused = false;
 		}
 	}
 	

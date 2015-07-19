@@ -1,6 +1,7 @@
 package com.greenjavadude.MediaPlayer;
 
 import java.io.IOException;
+
 import javax.sound.sampled.*;
 import javax.sound.sampled.DataLine.Info;
 
@@ -12,58 +13,55 @@ public class SongPlayer extends Player{
 	private AudioInputStream stream;
 	private AudioFormat format;
 	private Info info;
-	private SourceDataLine line;
+	private Clip clip;
+	
+	private int lastFrame;
 	
 	public SongPlayer(Song s){
 		super();
 		song = s;
+		lastFrame = 0;
 		
 		try{
 			stream = AudioSystem.getAudioInputStream(song.getFile());
 			format = stream.getFormat();
-			info = new Info(SourceDataLine.class, format);
-			line = (SourceDataLine) AudioSystem.getLine(info);
+			info = new Info(Clip.class, format);
+			clip = (Clip) AudioSystem.getLine(info);
 		}catch(IOException e){
-			
+			e.printStackTrace();
 		}catch(LineUnavailableException e){
-			
+			e.printStackTrace();
 		}catch(UnsupportedAudioFileException e){
-			
+			e.printStackTrace();
 		}
 	}
 	
 	public void doStuff() throws Exception{
-		line.open(format, 50);
-		
-		line.start();
-		
-		byte[] buffer = new byte[BYTE_BUFFER];
-		int bytesread = -1;
-		
-		while((running) && ((bytesread = stream.read(buffer)) != -1)){
-			line.write(buffer, 0, bytesread);
-		}
-		stop();
+		clip.open(stream);
+		clip.flush();
+		clip.start();
 	}
 	
 	public void doPause(){
-		line.stop();
+		lastFrame = clip.getFramePosition();
+		clip.stop();
 	}
 	
 	public void doContinuePlaying(){
-		line.start();
+		clip.setFramePosition(lastFrame);
+		clip.start();
 	}
 	
-	public void stop(){
+	public synchronized void stop(){
 		super.stop();
-		try{
+		clip.stop();
+		clip.close();
+		try {
 			stream.close();
-		}catch(IOException e){
-			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		format = null;
 		info = null;
-		line.close();
-		song = null;
 	}
 }
