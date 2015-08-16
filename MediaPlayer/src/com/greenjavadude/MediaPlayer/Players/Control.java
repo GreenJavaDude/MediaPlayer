@@ -1,4 +1,4 @@
-package com.greenjavadude.MediaPlayer;
+package com.greenjavadude.MediaPlayer.Players;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import com.greenjavadude.UniversalAPI.GameEngine.SpriteSheet;
 
 public class Control {
 	private SpriteSheet sheet;
@@ -18,11 +20,12 @@ public class Control {
 	
 	private Player player;
 	
-	public Control(Player player){
+	public Control(Player player, JPanel panel){
 		sheet = new SpriteSheet("res//SpriteSheet.png", 64, 64, 5, 5);
 		playIm = new ImageIcon(sheet.getImage(0));
 		pauseIm = new ImageIcon(sheet.getImage(1));
 		this.player = player;
+		this.panel = panel;
 		play = new JButton();
 		play.setIcon(pauseIm);
 		
@@ -49,8 +52,8 @@ public class Control {
 		play.setIcon(pauseIm);
 	}
 	
-	public JPanel getPanel(){
-		return panel;
+	public void start(){
+		player.start();
 	}
 }
 

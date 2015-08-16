@@ -1,4 +1,4 @@
-package com.greenjavadude.MediaPlayer;
+package com.greenjavadude.MediaPlayer.Media;
 
 import java.io.File;
 import java.io.Serializable;
@@ -16,11 +16,11 @@ public class Medium implements Serializable{
 		author = "Unknown Author";
 	}
 	
-	public String getTitle() {
+	public String getTitle(){
 		return title;
 	}
 	
-	public synchronized void setTitle(String t) {
+	public synchronized void setTitle(String t){
 		title = t;
 	}
 	
@@ -28,7 +28,7 @@ public class Medium implements Serializable{
 		return author;
 	}
 	
-	public synchronized void setAuthor(String a) {
+	public synchronized void setAuthor(String a){
 		author = a;
 	}
 	

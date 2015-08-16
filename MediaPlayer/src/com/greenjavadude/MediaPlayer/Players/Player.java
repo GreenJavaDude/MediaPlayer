@@ -1,20 +1,28 @@
-package com.greenjavadude.MediaPlayer;
+package com.greenjavadude.MediaPlayer.Players;
+
+import com.greenjavadude.UniversalAPI.Log;
 
 public abstract class Player implements Runnable{
 	protected boolean running;
 	protected boolean isPaused;
+	protected Log l = Log.INSTANCE;
 	
 	public Player(){
 		running = false;
 		isPaused = false;
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			public void run(){
+				stopPlayer();
+			}
+		});
 	}
 	
 	public void run(){
 		try{
 			doStuff();
 		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("Error at doStuff in Player.class");
+			l.error("doStuff in Player" + e.toString());
 		}
 	}
 	
@@ -23,15 +31,16 @@ public abstract class Player implements Runnable{
 		new Thread(this).start();
 	}
 	
-	public synchronized void stop(){
+	public synchronized void stopPlayer(){
 		isPaused = false;
 		running = false;
+		doStop();
 	}
 	
 	public synchronized void pause(){
 		if((running) && (!isPaused)){
-			isPaused = true;
 			doPause();
+			isPaused = true;
 		}
 	}
 	
@@ -45,4 +54,5 @@ public abstract class Player implements Runnable{
 	public abstract void doStuff() throws Exception;
 	public abstract void doPause();
 	public abstract void doContinuePlaying();
+	public abstract void doStop();
 }

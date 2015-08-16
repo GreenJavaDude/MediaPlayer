@@ -1,4 +1,4 @@
-package com.greenjavadude.MediaPlayer;
+package com.greenjavadude.MediaPlayer.Media;
 
 import java.io.File;
 

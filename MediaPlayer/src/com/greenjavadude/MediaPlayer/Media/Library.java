@@ -1,7 +1,9 @@
-package com.greenjavadude.MediaPlayer;
+package com.greenjavadude.MediaPlayer.Media;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import com.greenjavadude.UniversalAPI.Saver;
 
 public class Library {
 	private ArrayList<Medium> media;
@@ -15,7 +17,7 @@ public class Library {
 	}
 	
 	public void save(){
-		saver.saveToSer(this, saveLocation);
+		saver.saveToSer(this, saveLocation.getAbsolutePath());
 	}
 	
 	public static Library loadLibrary(String path){
@@ -23,7 +25,7 @@ public class Library {
 		Saver save = new Saver();
 		Library lib = null;
 		try{
-			lib = (Library) save.getFromSer(file);
+			lib = (Library) save.getFromSer(file.getAbsolutePath());
 		}catch(Exception e){
 			
 		}

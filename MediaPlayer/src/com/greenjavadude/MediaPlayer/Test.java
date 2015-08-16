@@ -1,53 +1,46 @@
 package com.greenjavadude.MediaPlayer;
 
+import java.awt.BorderLayout;
+import java.io.File;
+
 import javax.swing.*;
+
+import com.greenjavadude.MediaPlayer.Media.*;
+import com.greenjavadude.MediaPlayer.Players.*;
+import com.greenjavadude.UniversalAPI.Log;
 
 public class Test {
 	public static void main(String[] args){
-		JFrame frame = new JFrame();
-		frame.setTitle("Music Test");
+		Log.INSTANCE.setup(true, true, null, null);
+		JFrame frame = new JFrame("Test");
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
 		
+		JPanel south = new JPanel();
+		frame.add(BorderLayout.SOUTH, south);
 		
-		
-		
-		frame.setVisible(true);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//this is working
-	/*
-	public static void main(String[] args){
-		Song song = new Song("Testsong", new File("C://Programming//test.wav"));
+		Song song = new Song("Freestyle - Lady Antebellum", new File("C://Programming//test.wav"));
 		SongPlayer player = new SongPlayer(song);
-		player.start();
-		try{
-			Thread.sleep(5000);
-		}catch(Exception e){
-			
-		}
-		player.pause();
-		try{
-			Thread.sleep(5000);
-		}catch(Exception e){
-			
-		}
-		player.continuePlaying();
-		try{
-			Thread.sleep(5000);
-		}catch(Exception e){
-			
-		}
-		player.stop();
+		Control control = new Control(player, south);
+		
+		control.start();
+		
+		frame.repaint();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
