@@ -10,8 +10,11 @@ import com.greenjavadude.MediaPlayer.Players.*;
 import com.greenjavadude.UniversalAPI.Log;
 
 public class Test {
+	private static Log l = Log.INSTANCE;
+	
 	public static void main(String[] args){
-		Log.INSTANCE.setup(true, true, null, null);
+		l.setup(true, true, null, null);
+		
 		JFrame frame = new JFrame("Test");
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
@@ -23,11 +26,19 @@ public class Test {
 		SongPlayer player = new SongPlayer(song);
 		Control control = new Control(player, south);
 		
-		control.start();
-		
 		frame.repaint();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		l.log("Starting...");
+		control.start();
+		
+		try{
+			Thread.sleep(5000);
+		}catch(Exception e){
+			
+		}
+		player.skipTo(30000);
 	}
 }
 

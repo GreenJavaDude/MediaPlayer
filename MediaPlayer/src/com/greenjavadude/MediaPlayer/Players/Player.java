@@ -13,6 +13,7 @@ public abstract class Player implements Runnable{
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
+				l.debug("Shutting down player through shutdownhook");
 				stopPlayer();
 			}
 		});
@@ -51,8 +52,19 @@ public abstract class Player implements Runnable{
 		}
 	}
 	
+	public abstract void skipTo(double d);
 	public abstract void doStuff() throws Exception;
 	public abstract void doPause();
 	public abstract void doContinuePlaying();
 	public abstract void doStop();
 }
+
+
+
+
+
+
+
+
+
+

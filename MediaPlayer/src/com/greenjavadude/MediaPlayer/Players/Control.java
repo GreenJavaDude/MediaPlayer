@@ -22,8 +22,8 @@ public class Control {
 	
 	public Control(Player player, JPanel panel){
 		sheet = new SpriteSheet("res//SpriteSheet.png", 64, 64, 5, 5);
-		playIm = new ImageIcon(sheet.getImage(0));
-		pauseIm = new ImageIcon(sheet.getImage(1));
+		playIm = new ImageIcon(sheet.getImage(1));
+		pauseIm = new ImageIcon(sheet.getImage(0));
 		this.player = player;
 		this.panel = panel;
 		play = new JButton();
@@ -55,10 +55,8 @@ public class Control {
 	public void start(){
 		player.start();
 	}
+	
+	public void skipTo(double d){
+		player.skipTo(d);
+	}
 }
-
-
-
-
-
-

@@ -5,6 +5,7 @@ import com.greenjavadude.MediaPlayer.Media.Song;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class SongPlayer extends Player{
 	private Song song;
@@ -16,16 +17,11 @@ public class SongPlayer extends Player{
 	}
 	
 	public void doStuff() throws Exception{
-		try{
-			JFXPanel panel = new JFXPanel();
-			
-			Media media = new Media(song.getFile().toURI().toString());
-			mp = new MediaPlayer(media);
-			
-			mp.play();
-		}catch(Exception e){
-			
-		}
+		JFXPanel panel = new JFXPanel();
+		panel.setEnabled(false);
+		Media media = new Media(song.getFile().toURI().toString());
+		mp = new MediaPlayer(media);
+		mp.play();
 	}
 	
 	public void doPause(){
@@ -40,4 +36,30 @@ public class SongPlayer extends Player{
 		mp.stop();
 		mp.dispose();
 	}
+	
+	public void skipTo(double d){
+		//double d is in ms
+		Duration dur = new Duration(d);
+		l.debug("Ms: "+d);
+		if(mp == null){
+			l.debug("MediaPlayer is null");
+		}
+		l.debug("MediaPlayer's volume" + mp.getVolume());
+		l.debug("The Song's total duration: " + mp.getTotalDuration().toString());
+		if(mp.getTotalDuration().greaterThan(dur)){
+			mp.seek(dur);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
