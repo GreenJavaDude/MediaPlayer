@@ -30,15 +30,8 @@ public class Test {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		l.log("Starting...");
+		l.debug("Starting...");
 		control.start();
-		
-		try{
-			Thread.sleep(5000);
-		}catch(Exception e){
-			
-		}
-		player.skipTo(30000);
 	}
 }
 

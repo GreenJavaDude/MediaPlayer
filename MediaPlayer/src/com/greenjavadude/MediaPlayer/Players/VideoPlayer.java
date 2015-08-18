@@ -1,14 +1,10 @@
 package com.greenjavadude.MediaPlayer.Players;
 
 import com.greenjavadude.MediaPlayer.Media.Video;
-import com.greenjavadude.UniversalAPI.Log;
 
 public class VideoPlayer extends Player{
-	private Video video;
-	
 	public VideoPlayer(Video v){
-		super();
-		video = v;
+		super(v);
 	}
 	
 	public void doStuff() throws Exception{
@@ -29,5 +25,9 @@ public class VideoPlayer extends Player{
 	
 	public void skipTo(double d){
 		
+	}
+	
+	public int getTotalDuration(){
+		return 0;
 	}
 }

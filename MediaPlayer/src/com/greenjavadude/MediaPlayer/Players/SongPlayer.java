@@ -8,19 +8,17 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class SongPlayer extends Player{
-	private Song song;
 	private MediaPlayer mp;
 	
 	public SongPlayer(Song s){
-		super();
-		song = s;
+		super(s);
+		JFXPanel panel = new JFXPanel();
+		panel.setEnabled(false);
+		Media media = new Media(medium.getFile().toURI().toString());
+		mp = new MediaPlayer(media);
 	}
 	
 	public void doStuff() throws Exception{
-		JFXPanel panel = new JFXPanel();
-		panel.setEnabled(false);
-		Media media = new Media(song.getFile().toURI().toString());
-		mp = new MediaPlayer(media);
 		mp.play();
 	}
 	
@@ -39,16 +37,21 @@ public class SongPlayer extends Player{
 	
 	public void skipTo(double d){
 		//double d is in ms
-		Duration dur = new Duration(d);
-		l.debug("Ms: "+d);
+		Duration dur = new Duration(d*1000);
+		l.debug("seconds in skipTo SongPlayer: "+d);
 		if(mp == null){
 			l.debug("MediaPlayer is null");
+			return;
 		}
-		l.debug("MediaPlayer's volume" + mp.getVolume());
 		l.debug("The Song's total duration: " + mp.getTotalDuration().toString());
 		if(mp.getTotalDuration().greaterThan(dur)){
+			l.debug("Value is usable");
 			mp.seek(dur);
 		}
+	}
+	
+	public int getTotalDuration(){
+		return (int) mp.getTotalDuration().toSeconds();
 	}
 }
 

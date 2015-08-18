@@ -1,15 +1,18 @@
 package com.greenjavadude.MediaPlayer.Players;
 
+import com.greenjavadude.MediaPlayer.Media.Medium;
 import com.greenjavadude.UniversalAPI.Log;
 
 public abstract class Player implements Runnable{
 	protected boolean running;
 	protected boolean isPaused;
 	protected Log l = Log.INSTANCE;
+	protected Medium medium;
 	
-	public Player(){
+	public Player(Medium m){
 		running = false;
 		isPaused = false;
+		medium = m;
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
@@ -52,6 +55,11 @@ public abstract class Player implements Runnable{
 		}
 	}
 	
+	public Medium getMedium(){
+		return medium;
+	}
+	
+	public abstract int getTotalDuration();
 	public abstract void skipTo(double d);
 	public abstract void doStuff() throws Exception;
 	public abstract void doPause();
