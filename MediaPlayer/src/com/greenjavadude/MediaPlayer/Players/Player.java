@@ -1,5 +1,7 @@
 package com.greenjavadude.MediaPlayer.Players;
 
+import javax.swing.JPanel;
+
 import com.greenjavadude.MediaPlayer.Media.Medium;
 import com.greenjavadude.UniversalAPI.Log;
 
@@ -60,11 +62,15 @@ public abstract class Player implements Runnable{
 	}
 	
 	public abstract int getTotalDuration();
+	public abstract int getCurrentDuration();
 	public abstract void skipTo(double d);
 	public abstract void doStuff() throws Exception;
 	public abstract void doPause();
 	public abstract void doContinuePlaying();
 	public abstract void doStop();
+	public void init(JPanel panel){
+		
+	}
 }
 
 

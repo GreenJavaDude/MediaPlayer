@@ -1,5 +1,7 @@
 package com.greenjavadude.MediaPlayer.Players;
 
+import javax.swing.JPanel;
+
 import com.greenjavadude.MediaPlayer.Media.Song;
 
 import javafx.embed.swing.JFXPanel;
@@ -18,24 +20,24 @@ public class SongPlayer extends Player{
 		mp = new MediaPlayer(media);
 	}
 	
-	public void doStuff() throws Exception{
+	public synchronized void doStuff() throws Exception{
 		mp.play();
 	}
 	
-	public void doPause(){
+	public synchronized void doPause(){
 		mp.pause();
 	}
 	
-	public void doContinuePlaying(){
+	public synchronized void doContinuePlaying(){
 		mp.play();
 	}
 	
-	public void doStop(){
+	public synchronized void doStop(){
 		mp.stop();
 		mp.dispose();
 	}
 	
-	public void skipTo(double d){
+	public synchronized void skipTo(double d){
 		//double d is in ms
 		Duration dur = new Duration(d*1000);
 		l.debug("seconds in skipTo SongPlayer: "+d);
@@ -52,6 +54,10 @@ public class SongPlayer extends Player{
 	
 	public int getTotalDuration(){
 		return (int) mp.getTotalDuration().toSeconds();
+	}
+	
+	public int getCurrentDuration(){
+		return (int) mp.getCurrentTime().toSeconds();
 	}
 }
 

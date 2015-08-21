@@ -1,5 +1,6 @@
 package com.greenjavadude.MediaPlayer.Players;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,6 +28,8 @@ public class Control {
 	private Player player;
 	private Thing upper;
 	
+	private boolean slidermanuel;
+	
 	public Control(Player player, JPanel panel){
 		sheet = new SpriteSheet("res//SpriteSheet.png", 64, 64, 5, 5);
 		playIm = new ImageIcon(sheet.getImage(1));
@@ -36,6 +39,7 @@ public class Control {
 		play = new JButton();
 		play.setIcon(pauseIm);
 		upper = new Thing();
+		slidermanuel = false;
 		
 		play.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -51,8 +55,13 @@ public class Control {
 		slide.addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent e){
 				if(!slide.getValueIsAdjusting()){
-					l.debug("Value: "+slide.getValue());
-					skipTo(slide.getValue());
+					if(slidermanuel){
+						l.log("Skip to used");
+						skipTo(slide.getValue());
+						l.debug("Value: "+slide.getValue());
+					}
+				}else{
+					slidermanuel = true;
 				}
 			}
 		});
@@ -67,23 +76,25 @@ public class Control {
 		});
 	}
 	
-	public void pause(){
+	public synchronized void pause(){
 		player.pause();
 		play.setIcon(playIm);
 	}
 	
-	public void play(){
+	public synchronized void play(){
 		player.continuePlaying();
 		play.setIcon(pauseIm);
 	}
 	
-	public void start(){
+	public synchronized void start(){
+		player.init(panel);
 		player.start();
 		upper.start();
 	}
 	
-	public void skipTo(int i){
+	public synchronized void skipTo(int i){
 		l.debug("Value used: " + i);
+		slidermanuel = true;
 		player.skipTo((double) i);
 	}
 	
@@ -98,12 +109,13 @@ public class Control {
 			try{
 				while(busy){
 					try{
-						Thread.sleep(1000);
+						Thread.sleep(500);
 					}catch(Exception e){
 						
 					}
-					slide.setValue(slide.getValue() + 1);
-					l.debug("Slide moved one second up");
+					slidermanuel = false;
+					slide.setValue(player.getCurrentDuration());
+					l.debug("Moved slide");
 				}
 			}catch(Exception e){
 				l.error("Thing class in Control class");

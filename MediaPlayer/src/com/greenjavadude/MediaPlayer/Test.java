@@ -20,10 +20,15 @@ public class Test {
 		frame.setLocationRelativeTo(null);
 		
 		JPanel south = new JPanel();
-		frame.add(BorderLayout.SOUTH, south);
-		
+		frame.add(south);
+		/*
 		Song song = new Song("Freestyle - Lady Antebellum", new File("C://Programming//test.wav"));
 		SongPlayer player = new SongPlayer(song);
+		Control control = new Control(player, south);
+		*/
+		
+		Video video = new Video("Freestyle - Lady Antebellum", new File("C://Programming//test.avi"));
+		VideoPlayer player = new VideoPlayer(video);
 		Control control = new Control(player, south);
 		
 		frame.repaint();
