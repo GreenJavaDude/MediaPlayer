@@ -1,9 +1,6 @@
 package com.greenjavadude.MediaPlayer.Players;
 
-import javax.swing.JPanel;
-
 import com.greenjavadude.MediaPlayer.Media.Song;
-
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -38,16 +35,13 @@ public class SongPlayer extends Player{
 	}
 	
 	public synchronized void skipTo(double d){
-		//double d is in ms
 		Duration dur = new Duration(d*1000);
-		l.debug("seconds in skipTo SongPlayer: "+d);
+		
 		if(mp == null){
-			l.debug("MediaPlayer is null");
 			return;
 		}
-		l.debug("The Song's total duration: " + mp.getTotalDuration().toString());
+		
 		if(mp.getTotalDuration().greaterThan(dur)){
-			l.debug("Value is usable");
 			mp.seek(dur);
 		}
 	}
@@ -60,15 +54,3 @@ public class SongPlayer extends Player{
 		return (int) mp.getCurrentTime().toSeconds();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,7 +1,6 @@
 package com.greenjavadude.MediaPlayer.Players;
 
 import javax.swing.JPanel;
-
 import com.greenjavadude.MediaPlayer.Media.Medium;
 import com.greenjavadude.UniversalAPI.Log;
 
@@ -18,7 +17,6 @@ public abstract class Player implements Runnable{
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
-				l.debug("Shutting down player through shutdownhook");
 				stopPlayer();
 			}
 		});
@@ -72,13 +70,3 @@ public abstract class Player implements Runnable{
 		
 	}
 }
-
-
-
-
-
-
-
-
-
-

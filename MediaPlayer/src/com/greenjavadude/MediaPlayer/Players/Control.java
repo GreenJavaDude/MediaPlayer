@@ -1,9 +1,7 @@
 package com.greenjavadude.MediaPlayer.Players;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,7 +20,8 @@ public class Control {
 	private JButton play;
 	private ImageIcon pauseIm;
 	
-	private JPanel panel;
+	private JPanel main;
+	private JPanel south;
 	private JSlider slide;
 	
 	private Player player;
@@ -30,12 +29,13 @@ public class Control {
 	
 	private boolean slidermanuel;
 	
-	public Control(Player player, JPanel panel){
+	public Control(Player player, JPanel main, JPanel south){
 		sheet = new SpriteSheet("res//SpriteSheet.png", 64, 64, 5, 5);
 		playIm = new ImageIcon(sheet.getImage(1));
 		pauseIm = new ImageIcon(sheet.getImage(0));
 		this.player = player;
-		this.panel = panel;
+		this.main = main;
+		this.south = south;
 		play = new JButton();
 		play.setIcon(pauseIm);
 		upper = new Thing();
@@ -56,9 +56,7 @@ public class Control {
 			public void stateChanged(ChangeEvent e){
 				if(!slide.getValueIsAdjusting()){
 					if(slidermanuel){
-						l.log("Skip to used");
 						skipTo(slide.getValue());
-						l.debug("Value: "+slide.getValue());
 					}
 				}else{
 					slidermanuel = true;
@@ -66,8 +64,8 @@ public class Control {
 			}
 		});
 		
-		panel.add(play);
-		panel.add(slide);
+		south.add(play);
+		south.add(slide);
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
@@ -87,13 +85,12 @@ public class Control {
 	}
 	
 	public synchronized void start(){
-		player.init(panel);
+		player.init(main);
 		player.start();
 		upper.start();
 	}
 	
 	public synchronized void skipTo(int i){
-		l.debug("Value used: " + i);
 		slidermanuel = true;
 		player.skipTo((double) i);
 	}
@@ -115,7 +112,6 @@ public class Control {
 					}
 					slidermanuel = false;
 					slide.setValue(player.getCurrentDuration());
-					l.debug("Moved slide");
 				}
 			}catch(Exception e){
 				l.error("Thing class in Control class");

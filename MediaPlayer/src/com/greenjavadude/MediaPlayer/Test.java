@@ -20,36 +20,23 @@ public class Test {
 		frame.setLocationRelativeTo(null);
 		
 		JPanel south = new JPanel();
-		frame.add(south);
+		JPanel main = new JPanel();
+		frame.add(main, BorderLayout.CENTER);
+		frame.add(south, BorderLayout.SOUTH);
 		/*
 		Song song = new Song("Freestyle - Lady Antebellum", new File("C://Programming//test.wav"));
 		SongPlayer player = new SongPlayer(song);
 		Control control = new Control(player, south);
 		*/
 		
-		Video video = new Video("Freestyle - Lady Antebellum", new File("C://Programming//test.avi"));
+		Video video = new Video("Freestyle - Lady Antebellum", new File("C://Programming//test.mp4"));
 		VideoPlayer player = new VideoPlayer(video);
-		Control control = new Control(player, south);
+		Control control = new Control(player, main, south);
 		
 		frame.repaint();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		l.debug("Starting...");
 		control.start();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
