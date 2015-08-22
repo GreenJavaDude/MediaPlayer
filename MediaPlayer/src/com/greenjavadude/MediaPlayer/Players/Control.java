@@ -64,8 +64,8 @@ public class Control {
 			}
 		});
 		
-		south.add(play);
-		south.add(slide);
+		this.south.add(play);
+		this.south.add(slide);
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
