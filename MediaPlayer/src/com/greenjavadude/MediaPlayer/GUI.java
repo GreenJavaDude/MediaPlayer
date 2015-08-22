@@ -1,5 +1,5 @@
 package com.greenjavadude.MediaPlayer;
 
-public class MediaPlayer {
-	//the jframe
+public class GUI {
+	//actual program
 }
