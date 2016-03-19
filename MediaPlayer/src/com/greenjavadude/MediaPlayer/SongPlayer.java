@@ -38,7 +38,7 @@ public class SongPlayer extends Player{
 	
 	public void doStuff() throws Exception{
 		clip.open(stream);
-		clip.flush();
+		clip.flush(); 
 		clip.start();
 	}
 	
@@ -56,10 +56,10 @@ public class SongPlayer extends Player{
 		super.stop();
 		clip.stop();
 		clip.close();
-		try {
+		try{
 			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		}catch(IOException e){
+			
 		}
 		format = null;
 		info = null;

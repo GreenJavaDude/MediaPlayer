@@ -1,5 +1,8 @@
 package com.greenjavadude.MediaPlayer;
 
+import java.awt.BorderLayout;
+import java.io.File;
+
 import javax.swing.*;
 
 public class Test {
@@ -9,9 +12,13 @@ public class Test {
 		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
 		
+		Song song = new Song("Clocks - Coldplay", new File("C://Programming//test.wav"));
+		SongPlayer player = new SongPlayer(song);
+		Control control = new Control(player);
 		
+		frame.add(BorderLayout.SOUTH, control.getPanel());
 		
-		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 	

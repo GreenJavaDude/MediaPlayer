@@ -36,6 +36,8 @@ public class Control {
 			}
 		});
 		
+		panel = new JPanel();
+		
 		panel.add(play);
 	}
 	
